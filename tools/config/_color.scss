@@ -1,0 +1,17 @@
+@include config-set('color', (
+
+  'white': #fff,
+  'black': #000,
+  'gray': (
+    'default': #ccc,
+    'light': #e4e4e4,
+    'dark': #444243,
+    'athens': #ecedef
+  )
+), true);
+
+
+$color-classes: (
+  'white',
+  'black'
+) !global;

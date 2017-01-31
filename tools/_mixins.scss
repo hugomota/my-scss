@@ -1,0 +1,129 @@
+@mixin conf($args...) {
+  $value: conf($args...);
+
+  @if type-of($value) == 'map' {
+    $keys: map-keys($value);
+
+    @each $key in $keys {
+      $property-value: map-get($value, $key);
+
+      @if type-of($property-value) != 'map' {
+        #{$key}: $property-value;
+      }
+    }
+  }
+}
+
+@mixin g-container($max-width: conf('grid.max-width')) {
+  margin: 0 auto;
+  max-width: $max-width;
+  width: 100%;
+
+  @include media(#{'<=' + ($max-width + conf('grid.side-margin') * 2) }) {
+    margin-left: conf('grid.side-margin');
+    margin-right: conf('grid.side-margin');
+    max-width: none;
+    width: auto;
+  }
+}
+
+@mixin centering-container() {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@mixin background-cover() {
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin unstyle-list() {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin image2x($image, $width, $height) {
+  @media (min--moz-device-pixel-ratio: 1.3),
+         (-o-min-device-pixel-ratio: 2.6/2),
+         (-webkit-min-device-pixel-ratio: 1.3),
+         (min-device-pixel-ratio: 1.3),
+         (min-resolution: 1.3dppx) {
+    background-image: url($image);
+
+    background-size: $width $height;
+  }
+}
+
+@mixin font-size($size: $em-base, $line-height: null) {
+  font-size: $size * 1px;
+  font-size: rem($size);
+
+  @if $line-height != null {
+    line-height: $line-height * 1px;
+    line-height: rem($line-height);
+  }
+}
+
+@each $color-class in $color-classes {
+  $class-name: str-replace($color-class, '.', '-');
+
+  .bg-#{$class-name} {
+    background-color: #{conf('color.' + $color-class)};
+  }
+
+  .#{$class-name} {
+    color: #{conf('color.' + $color-class)};
+  }
+}
+
+@mixin icon($name) {
+  @include conf('font.icons');
+
+  content: conf(#{'icons.' + $name});
+}
+
+//grid
+@function columnwidth($colnumber) {
+  @return 100% / $colnumber;
+}
+
+@mixin column($gutter, $colnumber, $height) {
+  display: flex;
+  flex: 0 1 columnwidth($colnumber);
+  height: $height;
+
+  > * {
+    display: flex;
+    flex-direction: column;
+    margin: $gutter / 2;
+    width: 100%;
+  }
+}
+
+@mixin grid($gutter, $colnumber, $height) {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -$gutter / 2;
+  padding: 0;
+
+  > * {
+    @include column($gutter, $colnumber, $height);
+  }
+}
+
+@mixin grid-breakpoint($breakpoint, $colnumber) {
+  @include media('<=#{$breakpoint}') {
+    > * {
+      flex-basis: columnwidth($colnumber);
+    }
+  }
+}
+
+@mixin text-no-wrap() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,13 @@
+// This file is not meant to generate css.
+// Include just congigurations and mixins
+
+// Vendor/3rd party
+// Should be installed with npm
+@import '../../../node_modules/growcss-sass-config-manager/dist/config-manager';
+@import '../../../node_modules/bourbon/app/assets/stylesheets/bourbon';
+@import '../../../node_modules/include-media/dist/include-media';
+
+// Variables/Functions/Mixins
+@import 'tools/variables';
+@import 'tools/functions';
+@import 'tools/mixins';

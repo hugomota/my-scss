@@ -1,0 +1,4 @@
+@include config-set('grid', (
+  max-width: 760px,
+  side-margin: 20px,
+), true);

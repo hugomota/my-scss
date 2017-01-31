@@ -1,0 +1,11 @@
+@include config-set('height', (
+  begin-of-body: 100px,
+  begin-of-body-mobile: 30px,
+  header: 160px,
+  submenu: 50px,
+  header-mobile: 50px,
+  footer: 510px,
+  footer-small-viewportheight: 280px,
+  footer-mobile-small-viewportheight: 550px,
+  footer-mobile: 720px
+), true);

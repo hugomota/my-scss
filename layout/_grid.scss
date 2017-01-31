@@ -1,0 +1,13 @@
+article {
+  @include g-container;
+
+  @include media('<=m-s') {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &.full-width {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
